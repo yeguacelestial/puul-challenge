@@ -58,16 +58,25 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## Support
+## Tasks
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### Usuarios
+- [x] Endpoint para crear usuarios con los campos: nombre, correo
+electrónico y rol (miembro o administrador).
+- [x] Endpoint para listar todos los usuarios.
+- [ ] Agregar filtros por nombre y/o correo y por rol de usuario.
+- [ ] Incluir la cantidad de tareas terminadas por cada usuario y la suma del costo de todas las tareas terminadas de ese
+usuario.
 
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+### Tareas
+- [x] Endpoint para crear tareas incluyendo campos: título, descripción,
+estimación de horas, fecha de vencimiento, estado (activa, terminada)
+y usuarios asignados (puede ser más de uno), costo monetario por
+tarea.
+- [ ] Endpoint para listar tareas. 
+- [ ] Incluir ordenamiento de tareas más reciente a menos reciente e incluir filtros por fecha de vencimiento, por nombre de tarea, por usuario asignado y extra: por nombre y/o correo del usuario. Poder asignar múltiples filtros a la vez.
+- [ ] Endpoint para actualizar cualquier detalle de una tarea, incluyendo la
+reasignación de usuarios y la actualización de la estimación de horas.
+- [ ] Endpoint para eliminar tareas.
+- [ ] Endpoint de analítica: Incluir dos estadísticas que veas relevante dado
+el contexto del proyecto.
