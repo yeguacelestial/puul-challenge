@@ -74,7 +74,7 @@ y usuarios asignados (puede ser más de uno), costo monetario por
 tarea.
 - [x] Endpoint para listar tareas. 
 - [ ] Incluir ordenamiento de tareas más reciente a menos reciente e incluir filtros por fecha de vencimiento, por nombre de tarea, por usuario asignado y extra: por nombre y/o correo del usuario. Poder asignar múltiples filtros a la vez.
-- [ ] Endpoint para actualizar cualquier detalle de una tarea, incluyendo la
+- [x] Endpoint para actualizar cualquier detalle de una tarea, incluyendo la
 reasignación de usuarios y la actualización de la estimación de horas.
 - [x] Endpoint para eliminar tareas.
 - [ ] Endpoint de analítica: Incluir dos estadísticas que veas relevante dado
