@@ -16,7 +16,7 @@ export class Task {
   @CreateDateColumn()
   created_at: Date;
 
-  @Column()
+  @Column({ unique: true })
   title: string;
 
   @Column()
@@ -28,13 +28,13 @@ export class Task {
   @Column()
   expiration_date: Date;
 
-  @Column()
+  @Column({ default: 'active' })
   status: string;
 
   @ManyToMany(() => User)
   @JoinTable()
   assigned_users: User[];
 
-  @Column()
+  @Column({ default: 0 })
   cost: number;
 }
