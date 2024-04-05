@@ -18,9 +18,13 @@ export class TasksService {
     return this.taskRepository.findOne({ where: { id } });
   }
 
+  async findOneByTitle(title: string): Promise<Task> {
+    return this.taskRepository.findOne({ where: { title } });
+  }
+
   async create(task: Partial<Task>): Promise<Task> {
-    const newUser = this.taskRepository.create(task);
-    return this.taskRepository.save(newUser);
+    const newTask = this.taskRepository.create(task);
+    return this.taskRepository.save(newTask);
   }
 
   async update(id: number, task: Partial<Task>): Promise<Task> {

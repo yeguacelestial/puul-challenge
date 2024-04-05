@@ -2,12 +2,13 @@ import {
   IsString,
   IsNotEmpty,
   IsNumber,
-  IsDate,
   IsArray,
   ValidateNested,
+  IsOptional,
+  IsDateString,
 } from 'class-validator';
 import { Type } from 'class-transformer';
-import { FilterUserDto } from 'src/users/dto/filter-user.dto';
+import { User } from 'src/users/models/user.entity';
 
 export class CreateTaskDto {
   @IsString()
@@ -16,26 +17,29 @@ export class CreateTaskDto {
 
   @IsString()
   @IsNotEmpty()
+  @IsOptional()
   description: string;
 
   @IsNumber()
   @IsNotEmpty()
+  @IsOptional()
   estimated_hours: number;
 
-  @IsDate()
+  @IsDateString()
   @IsNotEmpty()
   expiration_date: Date;
 
   @IsString()
   @IsNotEmpty()
+  @IsOptional()
   status: string;
 
   @IsArray()
   @ValidateNested({ each: true })
-  @Type(() => FilterUserDto)
-  assigned_users: FilterUserDto[];
+  @Type(() => User)
+  @IsOptional()
+  assigned_users: User[];
 
   @IsNumber()
-  @IsNotEmpty()
   cost: number;
 }
