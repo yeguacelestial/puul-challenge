@@ -64,7 +64,7 @@ $ npm run test:cov
 - [x] Endpoint para crear usuarios con los campos: nombre, correo
 electrónico y rol (miembro o administrador).
 - [x] Endpoint para listar todos los usuarios.
-- [ ] Agregar filtros por nombre y/o correo y por rol de usuario.
+- [x] Agregar filtros por nombre y/o correo y por rol de usuario.
 - [ ] Incluir la cantidad de tareas terminadas por cada usuario y la suma del costo de todas las tareas terminadas de ese
 usuario.
 

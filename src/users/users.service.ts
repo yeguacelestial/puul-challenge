@@ -10,7 +10,10 @@ export class UsersService {
     private userRepository: Repository<User>,
   ) {}
 
-  async findAll(): Promise<User[]> {
+  async findAll(filter?: Partial<User>): Promise<User[]> {
+    if (filter) {
+      return this.userRepository.find({ where: filter });
+    }
     return this.userRepository.find();
   }
 
