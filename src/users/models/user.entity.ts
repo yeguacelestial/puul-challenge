@@ -8,15 +8,15 @@ export class User {
   @Column()
   name: string;
 
-  @Column()
+  @Column({ unique: true })
   email: string;
 
-  @Column()
+  @Column({ default: 'member' })
   role: string;
 
-  @Column()
+  @Column({ default: 0 })
   finished_tasks: number;
 
-  @Column()
+  @Column({ default: 0 })
   total_finished_tasks_cost: number;
 }
