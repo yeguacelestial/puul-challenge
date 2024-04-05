@@ -31,7 +31,7 @@ export class Task {
   @Column({ default: 'active' })
   status: string;
 
-  @ManyToMany(() => User)
+  @ManyToMany(() => User, { eager: true })
   @JoinTable()
   assigned_users: User[];
 

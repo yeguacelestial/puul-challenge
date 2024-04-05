@@ -40,7 +40,10 @@ export class TasksController {
   @Put(':id')
   async update(@Param('id') id: number, @Body() task: Task): Promise<any> {
     await this.tasksService.update(id, task);
-    return { message: 'Task updated successfully' };
+    return {
+      message: 'Task updated successfully',
+      task: await this.tasksService.findOne(id),
+    };
   }
 
   @Delete(':id')

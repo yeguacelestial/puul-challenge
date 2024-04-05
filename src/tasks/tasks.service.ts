@@ -1,13 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Task } from './models/task.entity';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
+import { User } from 'src/users/models/user.entity';
 
 @Injectable()
 export class TasksService {
   constructor(
     @InjectRepository(Task)
     private taskRepository: Repository<Task>,
+    @InjectRepository(User)
+    private userRepository: Repository<User>,
   ) {}
 
   async findAll(): Promise<Task[]> {
@@ -27,9 +30,29 @@ export class TasksService {
     return this.taskRepository.save(newTask);
   }
 
-  async update(id: number, task: Partial<Task>): Promise<Task> {
-    await this.taskRepository.update(id, task);
-    return this.taskRepository.findOne({ where: { id } });
+  async update(id: number, updatedTask: Partial<Task>): Promise<Task> {
+    let task = await this.taskRepository.findOne({
+      where: { id },
+      relations: ['assigned_users'],
+    });
+
+    if (!task) {
+      throw new Error(`Task with id ${id} not found`);
+    }
+
+    if (updatedTask.assigned_users) {
+      const assignedUserIds = updatedTask.assigned_users;
+      const assignedUsers = await this.userRepository.findBy({
+        id: In(assignedUserIds),
+      });
+      task.assigned_users = assignedUsers;
+    }
+
+    task = this.taskRepository.merge(task, updatedTask);
+
+    task = await this.taskRepository.save(task);
+
+    return task;
   }
 
   async delete(id: number): Promise<void> {
