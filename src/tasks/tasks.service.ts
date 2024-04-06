@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Task } from './models/task.entity';
 import { In, Repository } from 'typeorm';
@@ -40,6 +40,26 @@ export class TasksService {
       throw new Error(`Task with id ${id} not found`);
     }
 
+    // Task is marked as finished
+    if (updatedTask.status == 'finished') {
+      if (task.status == 'finished') {
+        throw new BadRequestException(`Task was already finished.`);
+      }
+
+      // Compute number of tasks and costs value
+      this.userRepository
+        .createQueryBuilder()
+        .update(User)
+        .set({
+          finished_tasks: () => '"finished_tasks" + 1',
+          total_finished_tasks_cost: () =>
+            `"total_finished_tasks_cost" + ${task.cost}`,
+        })
+        .whereInIds(task.assigned_users.map((user) => user.id))
+        .execute();
+    }
+
+    // Assign users to the task
     if (updatedTask.assigned_users) {
       const assignedUserIds = updatedTask.assigned_users;
       const assignedUsers = await this.userRepository.findBy({
