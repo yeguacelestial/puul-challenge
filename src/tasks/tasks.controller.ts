@@ -9,18 +9,20 @@ import {
   Param,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { Task } from './models/task.entity';
 import { CreateTaskDto } from './dto/create-task.dto';
+import { User } from 'src/users/models/user.entity';
 
 @Controller('api/tasks')
 export class TasksController {
   constructor(private readonly tasksService: TasksService) {}
 
   @Get()
-  async findAll(): Promise<Task[]> {
-    return this.tasksService.findAll();
+  async findAll(@Query() filter?: Partial<User>): Promise<Task[]> {
+    return this.tasksService.findAll(filter);
   }
 
   @Post()

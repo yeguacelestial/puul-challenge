@@ -13,7 +13,17 @@ export class TasksService {
     private userRepository: Repository<User>,
   ) {}
 
-  async findAll(): Promise<Task[]> {
+  async findAll(filter?: Partial<Task>): Promise<Task[]> {
+    if (filter) {
+      return this.taskRepository.find({
+        where: filter,
+        order: {
+          created_at: {
+            direction: 'DESC',
+          },
+        },
+      });
+    }
     return this.taskRepository.find();
   }
 
